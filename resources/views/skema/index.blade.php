@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,23 +18,56 @@
             font-family: Arial, sans-serif;
             background: #f8fafc;
             color: #1e293b;
+            min-height: 100vh;
         }
 
+        /* NAVBAR */
         .navbar {
             background: #1e3a8a;
             color: white;
-            padding: 18px 40px;
+            padding: 18px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .navbar a {
+        .brand {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 12px 23px;
+            background: #2563eb;
+            color: white;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #1d4ed8;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* KONTEN */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -44,18 +78,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
             margin-bottom: 25px;
         }
 
         .header h1 {
             font-size: 28px;
+            color: #142c55;
         }
 
         .header p {
             color: #64748b;
-            margin-top: 5px;
+            margin-top: 7px;
+            line-height: 1.6;
         }
 
+        /* TOMBOL AKSI */
         .btn {
             display: inline-block;
             padding: 10px 16px;
@@ -64,6 +102,9 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+            white-space: nowrap;
         }
 
         .btn-primary {
@@ -80,9 +121,17 @@
             color: white;
         }
 
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
         .btn-danger {
             background: #dc2626;
             color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
         }
 
         .btn-info {
@@ -90,6 +139,11 @@
             color: white;
         }
 
+        .btn-info:hover {
+            background: #115e59;
+        }
+
+        /* NOTIFIKASI */
         .alert {
             padding: 14px 18px;
             border-radius: 8px;
@@ -106,6 +160,7 @@
             color: #991b1b;
         }
 
+        /* TABEL */
         .table-container {
             background: white;
             border-radius: 14px;
@@ -127,7 +182,8 @@
         }
 
         th {
-            background: #f8fafc;
+            background: #eff6ff;
+            color: #1e3a8a;
             font-size: 14px;
         }
 
@@ -135,8 +191,14 @@
             font-size: 14px;
         }
 
+        tbody tr:hover {
+            background: #f8fbff;
+        }
+
         .actions {
             display: flex;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 6px;
         }
 
@@ -149,136 +211,178 @@
             padding: 35px;
             color: #64748b;
         }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 18px 5%;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-menu {
+                gap: 8px;
+            }
+
+            .nav-button {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .container {
+                margin-top: 25px;
+            }
+
+            .header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            table {
+                min-width: 700px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-<nav class="navbar">
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-    <strong>Aplikasi Sertifikasi</strong>
-
-    <div>
-        <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('skema.index') }}">Skema</a>
-    </div>
-
-</nav>
-
-<div class="container">
-
-    <div class="header">
-
-        <div>
-            <h1>Data Skema Sertifikasi</h1>
-            <p>Kelola data skema sertifikasi.</p>
-        </div>
-
-        <a href="{{ route('skema.create') }}" class="btn btn-primary">
-            + Tambah Skema
+        <a href="{{ route('dashboard') }}" class="brand">
+            Aplikasi Sertifikasi
         </a>
 
-    </div>
+        <div class="nav-menu">
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+            <a href="{{ route('dashboard') }}" class="nav-button">
+                Dashboard
+            </a>
+
+            <a href="{{ route('peserta.index') }}" class="nav-button">
+                Data Peserta
+            </a>
+
+            <a href="{{ route('skema.index') }}" class="nav-button">
+                Data Skema
+            </a>
+
         </div>
-    @endif
 
-    @if (session('error'))
-        <div class="alert alert-error">
-            {{ session('error') }}
-        </div>
-    @endif
+    </nav>
 
-    <div class="table-container">
+    <!-- KONTEN UTAMA -->
+    <main class="container">
 
-        @if ($skemas->count() > 0)
+        <div class="header">
 
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kode</th>
-                        <th>Nama Skema</th>
-                        <th>Jumlah Peserta</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach ($skemas as $skema)
-
-                        <tr>
-
-                            <td>{{ $loop->iteration }}</td>
-
-                            <td>{{ $skema->kode }}</td>
-
-                            <td>{{ $skema->nama_skema }}</td>
-
-                            <td>{{ $skema->pesertas_count }}</td>
-
-                            <td>
-                                <div class="actions">
-
-                                    <a
-                                        href="{{ route('skema.show', $skema) }}"
-                                        class="btn btn-info"
-                                    >
-                                        Detail
-                                    </a>
-
-                                    <a
-                                        href="{{ route('skema.edit', $skema) }}"
-                                        class="btn btn-warning"
-                                    >
-                                        Edit
-                                    </a>
-
-                                    <form
-                                        action="{{ route('skema.destroy', $skema) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus skema ini?')"
-                                    >
-
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-danger"
-                                        >
-                                            Hapus
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
-                        </tr>
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
-        @else
-
-            <div class="empty">
-                Belum ada data skema sertifikasi.
+            <div>
+                <h1>Data Skema Sertifikasi</h1>
+                <p>Kelola data skema sertifikasi.</p>
             </div>
 
+            <a href="{{ route('skema.create') }}" class="btn btn-primary">
+                + Tambah Skema
+            </a>
+
+        </div>
+
+        <!-- NOTIFIKASI -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
-    </div>
+        @if (session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
 
-</div>
+        <!-- DAFTAR SKEMA -->
+        <div class="table-container">
+
+            @if ($skemas->count() > 0)
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kode</th>
+                            <th>Nama Skema</th>
+                            <th>Jumlah Peserta</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($skemas as $skema)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td>{{ $skema->kode }}</td>
+
+                                <td>{{ $skema->nama_skema }}</td>
+
+                                <td>{{ $skema->pesertas_count }}</td>
+
+                                <td>
+                                    <div class="actions">
+
+                                        <a
+                                            href="{{ route('skema.show', $skema) }}"
+                                            class="btn btn-info"
+                                        >
+                                            Detail
+                                        </a>
+
+                                        <a
+                                            href="{{ route('skema.edit', $skema) }}"
+                                            class="btn btn-warning"
+                                        >
+                                            Edit
+                                        </a>
+
+                                        <form
+                                            action="{{ route('skema.destroy', $skema) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus skema ini?')"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger"
+                                            >
+                                                Hapus
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            @else
+
+                <div class="empty">
+                    Belum ada data skema sertifikasi.
+                </div>
+
+            @endif
+
+        </div>
+
+    </main>
 
 </body>
 </html>

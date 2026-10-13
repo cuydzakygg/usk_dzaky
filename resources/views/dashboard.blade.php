@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,48 +18,95 @@
             font-family: Arial, sans-serif;
             background: #f8fafc;
             color: #1e293b;
-        }.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-menu {
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
-}
-
-.nav-menu a {
-    color: #2563eb !important;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.nav-menu a:hover {
-    color: #1d4ed8 !important;
-    text-decoration: underline;
-}
-
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-        .admin-name {
-            font-size: 14px;
+            min-height: 100vh;
         }
 
+        /* NAVBAR */
+        .navbar {
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 800;
+            color: #142c55;
+        }
+
+        .brand span {
+            color: #2563eb;
+        }
+
+        /* MENU NAVIGASI */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* TOMBOL SAMA SEPERTI WELCOME */
+        .nav-button {
+            display: inline-block;
+            padding: 12px 23px;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .nav-button:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        /* TOMBOL LOGOUT */
         .logout-btn {
             border: none;
             background: #dc2626;
-            color: white;
-            padding: 9px 15px;
-            border-radius: 7px;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
         }
 
+        .logout-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        /* KONTEN */
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -72,24 +120,33 @@
         .welcome h1 {
             font-size: 30px;
             margin-bottom: 8px;
+            color: #142c55;
         }
 
         .welcome p {
             color: #64748b;
+            line-height: 1.7;
         }
 
+        /* KARTU STATISTIK */
         .cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 20px;
             margin-bottom: 35px;
         }
 
         .card {
-            background: white;
+            background: #ffffff;
             padding: 25px;
             border-radius: 14px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
         }
 
         .card-title {
@@ -104,15 +161,19 @@
             color: #1e3a8a;
         }
 
+        /* TABEL PESERTA */
         .section {
-            background: white;
+            background: #ffffff;
             padding: 25px;
             border-radius: 14px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            overflow-x: auto;
         }
 
         .section h2 {
             margin-bottom: 20px;
+            color: #142c55;
+            font-size: 23px;
         }
 
         table {
@@ -128,23 +189,54 @@
         }
 
         th {
-            background: #f8fafc;
+            background: #eff6ff;
+            color: #1e3a8a;
             font-size: 14px;
         }
 
         td {
             font-size: 14px;
+            color: #475569;
+        }
+
+        tbody tr:hover {
+            background: #f8fbff;
         }
 
         .empty {
             text-align: center;
             color: #64748b;
-            padding: 25px;
+            padding: 30px 15px;
         }
 
+        /* RESPONSIVE TABLET DAN HP */
         @media (max-width: 700px) {
             .navbar {
-                padding: 15px 20px;
+                padding: 18px 5%;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .navbar-left {
+                width: 100%;
+            }
+
+            .brand {
+                font-size: 22px;
+            }
+
+            .nav-menu {
+                gap: 8px;
+            }
+
+            .nav-button {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .navbar-right {
+                width: 100%;
+                justify-content: space-between;
             }
 
             .cards {
@@ -155,131 +247,144 @@
                 margin-top: 25px;
             }
 
+            .welcome h1 {
+                font-size: 26px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
             table {
-                font-size: 12px;
+                min-width: 650px;
             }
         }
     </style>
 </head>
 
 <body>
-<nav class="navbar">
 
-    <div>
-        <h2>Aplikasi Sertifikasi</h2>
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-        <div class="nav-menu">
-            <a href="{{ route('dashboard') }}">Dashboard</a>
-            <a href="{{ route('peserta.index') }}">Data Peserta</a>
-            <a href="{{ route('skema.index') }}">Data Skema</a>
-        </div>
-    </div>
-
-    <div class="navbar-right">
-
-        <span class="admin-name">
-            {{ Auth::user()->name }}
-        </span>
-
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-
-            <button type="submit" class="logout-btn">
-                Logout
-            </button>
-        </form>
-
-    </div>
-
-</nav>
-
-<div class="container">
-
-    <div class="welcome">
-        <h1>Dashboard</h1>
-
-        <p>
-            Selamat datang di Aplikasi Pengelolaan Data Peserta Sertifikasi.
-        </p>
-    </div>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="card-title">
-                Total Peserta
+        <div class="navbar-left">
+            <div class="brand">
+                Aplikasi <span>Sertifikasi</span>
             </div>
 
-            <div class="card-number">
-                {{ $totalPeserta }}
+            <div class="nav-menu">
+                <a href="{{ route('dashboard') }}" class="nav-button">
+                    Dashboard
+                </a>
+
+                <a href="{{ route('peserta.index') }}" class="nav-button">
+                    Data Peserta
+                </a>
+
+                <a href="{{ route('skema.index') }}" class="nav-button">
+                    Data Skema
+                </a>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-title">
-                Total Skema Sertifikasi
-            </div>
+        <div class="navbar-right">
 
-            <div class="card-number">
-                {{ $totalSkema }}
-            </div>
+            <span class="admin-name">
+                {{ Auth::user()->name }}
+            </span>
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button type="submit" class="logout-btn">
+                    Logout
+                </button>
+            </form>
+
         </div>
 
-    </div>
+    </nav>
 
-    <div class="section">
+    <!-- KONTEN DASHBOARD -->
+    <main class="container">
 
-        <h2>Peserta Terbaru</h2>
+        <div class="welcome">
+            <h1>Dashboard</h1>
 
-        @if ($pesertaTerbaru->count() > 0)
+            <p>
+                Selamat datang di Aplikasi Pengelolaan Data Peserta Sertifikasi.
+            </p>
+        </div>
 
-            <table>
+        <!-- STATISTIK -->
+        <div class="cards">
 
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIK</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th>Skema Sertifikasi</th>
-                    </tr>
-                </thead>
+            <div class="card">
+                <div class="card-title">
+                    Total Peserta
+                </div>
 
-                <tbody>
+                <div class="card-number">
+                    {{ $totalPeserta }}
+                </div>
+            </div>
 
-                    @foreach ($pesertaTerbaru as $peserta)
+            <div class="card">
+                <div class="card-title">
+                    Total Skema Sertifikasi
+                </div>
 
+                <div class="card-number">
+                    {{ $totalSkema }}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PESERTA TERBARU -->
+        <div class="section">
+
+            <h2>Peserta Terbaru</h2>
+
+            @if ($pesertaTerbaru->count() > 0)
+
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-
-                            <td>{{ $peserta->nik }}</td>
-
-                            <td>{{ $peserta->nama }}</td>
-
-                            <td>{{ $peserta->email }}</td>
-
-                            <td>
-                                {{ $peserta->skema->nama_skema ?? '-' }}
-                            </td>
+                            <th>No</th>
+                            <th>NIK</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Skema Sertifikasi</th>
                         </tr>
+                    </thead>
 
-                    @endforeach
+                    <tbody>
+                        @foreach ($pesertaTerbaru as $peserta)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $peserta->nik }}</td>
+                                <td>{{ $peserta->nama }}</td>
+                                <td>{{ $peserta->email }}</td>
+                                <td>
+                                    {{ $peserta->skema->nama_skema ?? '-' }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-                </tbody>
+            @else
 
-            </table>
+                <div class="empty">
+                    Belum ada data peserta.
+                </div>
 
-        @else
+            @endif
 
-            <div class="empty">
-                Belum ada data peserta.
-            </div>
+        </div>
 
-        @endif
-
-    </div>
-
-</div>
+    </main>
 
 </body>
 </html>

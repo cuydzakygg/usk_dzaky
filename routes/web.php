@@ -5,10 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SkemaController;
 use App\Http\Controllers\PesertaController;
+use App\Http\Controllers\ProfilPesertaController;
 
 /*
 |--------------------------------------------------------------------------
-| Halaman Welcome
+| Halaman Utama
 |--------------------------------------------------------------------------
 */
 
@@ -18,12 +19,11 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Login dan Registrasi
+| Login dan Register
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('guest')->group(function () {
-
     Route::get('/login', [AuthController::class, 'showLogin'])
         ->name('login');
 
@@ -35,37 +35,26 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/register', [AuthController::class, 'register'])
         ->name('register.process');
-
 });
 
 /*
 |--------------------------------------------------------------------------
-| Halaman Pengguna yang Sudah Login
+| Logout
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
-
-    // Dashboard Peserta
-    Route::get('/peserta-dashboard', function () {
-        return view('peserta.dashboard');
-    })->name('peserta.dashboard');
-
-    // Logout
-    Route::post('/logout', [AuthController::class, 'logout'])
-        ->name('logout');
-
-});
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| Halaman Administrator
+| Halaman Khusus Administrator
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
-    // Dashboard Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
@@ -77,5 +66,58 @@ Route::middleware('auth')->group(function () {
         ->parameters([
             'peserta' => 'peserta',
         ]);
+});
 
+// /*
+// |--------------------------------------------------------------------------
+// | Halaman Khusus Peserta
+// |--------------------------------------------------------------------------
+// */
+
+// Route::middleware(['auth', 'role:peserta'])->group(function () {
+
+//     // Dashboard Peserta
+    
+// Route::get('/peserta-dashboard', [
+//     ProfilPesertaController::class,
+//     'dashboard'
+// ])->name('peserta.dashboard');
+
+
+//     // Profil Peserta
+//     Route::get('/peserta/profil', [
+//         ProfilPesertaController::class,
+//         'edit',
+//     ])->name('peserta.profil.edit');
+
+//     Route::post('/peserta/profil', [
+//         ProfilPesertaController::class,
+//         'update',
+//     ])->name('peserta.profil.update');
+// });
+
+/*
+|--------------------------------------------------------------------------
+| Halaman Khusus Peserta
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'role:peserta'])->group(function () {
+
+    // Dashboard Peserta
+    Route::get('/peserta-dashboard', [
+        ProfilPesertaController::class,
+        'dashboard'
+    ])->name('peserta.dashboard');
+
+    // Profil Peserta (Diubah URL-nya menjadi /peserta-profil/edit atau /profil-peserta)
+    Route::get('/peserta-profil', [
+        ProfilPesertaController::class,
+        'edit',
+    ])->name('peserta.profil.edit');
+
+    Route::post('/peserta-profil', [
+        ProfilPesertaController::class,
+        'update',
+    ])->name('peserta.profil.update');
 });

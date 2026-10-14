@@ -26,19 +26,30 @@ class AuthController extends Controller
     }
 
     /**
-     * Proses registrasi akun peserta.
+     * Registrasi akun peserta baru.
      */
     public function register(Request $request)
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                'unique:users,email',
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+            ],
         ], [
             'name.required' => 'Nama lengkap wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
+            'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
@@ -60,13 +71,13 @@ class AuthController extends Controller
     }
 
     /**
-     * Proses login admin dan peserta.
+     * Login admin dan peserta.
      */
     public function login(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'string'],
         ], [
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
@@ -106,7 +117,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Proses logout.
+     * Logout pengguna dan kembali ke halaman Welcome.
      */
     public function logout(Request $request)
     {
@@ -116,7 +127,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()
-            ->route('login')
+            ->route('welcome')
             ->with('success', 'Kamu berhasil logout.');
     }
 }

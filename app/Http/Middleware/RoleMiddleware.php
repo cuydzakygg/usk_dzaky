@@ -17,9 +17,9 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        // if ($request->user()->role !== $role) {
-        //     abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
-        // }
+        if ($request->user()->role !== $role) {
+            abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+        }
 
         return $next($request);
     }
